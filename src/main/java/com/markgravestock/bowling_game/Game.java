@@ -16,18 +16,18 @@ public class Game {
 
 		for (int frame = 0; frame < 10; frame++) {
 
-			int frameScore = calculateFrameScore(index);
-
-			score += frameScore;
-
-			if (isStrike(pins.get(index))) {
+			if (isStrike(index)) {
+				score += STRIKE_SCORE;
 				score += calculateStrikeBonus(index);
 				index = index + 1;
-			} else if (isSpare(frameScore)) {
+			} else if (isSpare(index)) {
+				score += SPARE_SCORE;
 				score += calculateSpareBonus(index);
 				index = index + 2;
 			}
 			else {
+				int frameScore = calculateFrameScore(index);
+				score += frameScore;
 				index = index + 2;				
 			}
 		}
@@ -35,24 +35,24 @@ public class Game {
 		return score;
 	}
 
+	private boolean isStrike(int index) {
+		return pins.get(index) == STRIKE_SCORE;
+	}
+
 	private Integer calculateSpareBonus(int index) {
 		return pins.get(index + 2);
 	}
 
 	private int calculateStrikeBonus(int index) {
-		return pins.get(index + 2) + pins.get(index + 3);
+		return pins.get(index + 1) + pins.get(index + 2);
 	}
 
 	private int calculateFrameScore(int index) {
 		return pins.get(index) + pins.get(index + 1);
 	}
 
-	private boolean isStrike(int firstBowlInFrameScore) {
-		return firstBowlInFrameScore == STRIKE_SCORE;
-	}
-
-	private boolean isSpare(int frameScore) {
-		return frameScore == SPARE_SCORE;
+	private boolean isSpare(int index) {
+		return calculateFrameScore(index) == SPARE_SCORE;
 	}
 
 	public void bowl(int numberOfPinsHit) {

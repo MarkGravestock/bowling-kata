@@ -1,11 +1,10 @@
 package com.markgravestock.bowling_game.test;
 
+import static java.util.stream.IntStream.range;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static java.util.stream.IntStream.*;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.markgravestock.bowling_game.Game;
