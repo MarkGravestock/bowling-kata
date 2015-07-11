@@ -8,27 +8,26 @@ public class Game {
 	private static final int SPARE_SCORE = 10;
 	private static final int STRIKE_SCORE = 10;
 
-	private List<Integer> pins = new ArrayList<Integer>();
+	private List<Integer> rolls = new ArrayList<Integer>();
 
 	public int getScore() {
 		int score = 0;
-		int index = 0;
+		int rollIndex = 0;
 
 		for (int frame = 0; frame < 10; frame++) {
 
-			if (isStrike(index)) {
+			if (isStrike(rollIndex)) {
 				score += STRIKE_SCORE;
-				score += calculateStrikeBonus(index);
-				index = index + 1;
-			} else if (isSpare(index)) {
+				score += calculateStrikeBonus(rollIndex);
+				rollIndex = rollIndex + 1;
+			} else if (isSpare(rollIndex)) {
 				score += SPARE_SCORE;
-				score += calculateSpareBonus(index);
-				index = index + 2;
+				score += calculateSpareBonus(rollIndex);
+				rollIndex = rollIndex + 2;
 			}
 			else {
-				int frameScore = calculateFrameScore(index);
-				score += frameScore;
-				index = index + 2;				
+				score += calculateFrameScore(rollIndex);
+				rollIndex = rollIndex + 2;				
 			}
 		}
 
@@ -36,19 +35,19 @@ public class Game {
 	}
 
 	private boolean isStrike(int index) {
-		return pins.get(index) == STRIKE_SCORE;
+		return rolls.get(index) == STRIKE_SCORE;
 	}
 
 	private Integer calculateSpareBonus(int index) {
-		return pins.get(index + 2);
+		return rolls.get(index + 2);
 	}
 
 	private int calculateStrikeBonus(int index) {
-		return pins.get(index + 1) + pins.get(index + 2);
+		return rolls.get(index + 1) + rolls.get(index + 2);
 	}
 
 	private int calculateFrameScore(int index) {
-		return pins.get(index) + pins.get(index + 1);
+		return rolls.get(index) + rolls.get(index + 1);
 	}
 
 	private boolean isSpare(int index) {
@@ -56,6 +55,6 @@ public class Game {
 	}
 
 	public void bowl(int numberOfPinsHit) {
-		pins.add(numberOfPinsHit);
+		rolls.add(numberOfPinsHit);
 	}
 }
